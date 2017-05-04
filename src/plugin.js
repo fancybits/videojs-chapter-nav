@@ -11,8 +11,14 @@ class ChapterNavButton extends Button {
     } else {
       this.controlText("Next")
     }
+
     this.update()
-    this.on(this.player_.controlBar.chaptersButton, 'change', this.update)
+
+    let chaptersButton = this.player_.controlBar.chaptersButton
+    this.on(chaptersButton, 'change', this.update)
+    this.on('dispose', () => {
+      this.off(chaptersButton, 'change', this.update)
+    })
   }
   buildCSSClass() {
     return `vjs-chapter-nav-button jump-${this.options_.direction} ${super.buildCSSClass()}`

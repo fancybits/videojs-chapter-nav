@@ -24,6 +24,8 @@ var ChapterNavButton = (function (_Button) {
   _inherits(ChapterNavButton, _Button);
 
   function ChapterNavButton(player, options) {
+    var _this = this;
+
     _classCallCheck(this, ChapterNavButton);
 
     _get(Object.getPrototypeOf(ChapterNavButton.prototype), 'constructor', this).call(this, player, options);
@@ -32,12 +34,29 @@ var ChapterNavButton = (function (_Button) {
     } else {
       this.controlText("Next");
     }
+
+    this.update();
+
+    var chaptersButton = this.player_.controlBar.chaptersButton;
+    this.on(chaptersButton, 'change', this.update);
+    this.on('dispose', function () {
+      _this.off(chaptersButton, 'change', _this.update);
+    });
   }
 
   _createClass(ChapterNavButton, [{
     key: 'buildCSSClass',
     value: function buildCSSClass() {
       return 'vjs-chapter-nav-button jump-' + this.options_.direction + ' ' + _get(Object.getPrototypeOf(ChapterNavButton.prototype), 'buildCSSClass', this).call(this);
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      if (this.player_.controlBar.chaptersButton.hasClass('vjs-hidden')) {
+        this.hide();
+      } else {
+        this.show();
+      }
     }
   }, {
     key: 'handleClick',
