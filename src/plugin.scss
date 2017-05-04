@@ -1,0 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Material+Icons);
+
+.video-js .vjs-chapter-nav-button {
+  font-family: 'Material Icons';
+  cursor: pointer;
+  width: 2em;
+
+  &.jump-prev::before {
+    content: '\e045';
+  }
+  &.jump-next::before {
+    content: '\e044';
+  }
+}

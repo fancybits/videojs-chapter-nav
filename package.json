@@ -1,0 +1,38 @@
+{
+  "name": "videojs-chapter-nav",
+  "version": "1.0.0",
+  "description": "video.js plugin for skip to next/previous chapter buttons.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fancybits/videojs-chapter-nav.git"
+  },
+  "scripts": {
+    "build": "mkdir -p dist/ && ./node_modules/.bin/browserify src/plugin.js -o dist/videojs.chapter-nav.js"
+  },
+  "keywords": [
+    "videojs",
+    "videojs-plugin"
+  ],
+  "author": "Fancy Bits, LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fancybits/videojs-chapter-nav/issues"
+  },
+  "homepage": "https://github.com/fancybits/videojs-chapter-nav#readme",
+  "main": "dist/videojs.chapter-nav.js",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "browserify-shim": "^3.8.10",
+    "video.js": "^5.19.1"
+  },
+  "browserify": {
+    "transform": [
+      "babelify",
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "video.js": "global:videojs"
+  }
+}
