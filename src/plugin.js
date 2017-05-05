@@ -31,8 +31,29 @@ class ChapterNavButton extends Button {
     }
   }
   handleClick() {
-    if (this.options_.direction == "prev") {
-    } else {
+    const player = this.player_
+    const track = player.controlBar.chaptersButton.track_
+    if (!track) return
+
+    const cues = track.cues
+    if (!cues.length) return
+
+    const len = cues.length
+    const now = player.currentTime()
+
+    for (var n = 0; n < len; n++) {
+      const {startTime, endTime} = cues[n]
+      if (this.options_.direction == "prev") {
+        if (now > startTime && now <= endTime+4) {
+          player.currentTime(startTime)
+          break
+        }
+      } else {
+        if (now >= startTime && now < endTime) {
+          player.currentTime(endTime)
+          break
+        }
+      }
     }
   }
 }

@@ -61,7 +61,33 @@ var ChapterNavButton = (function (_Button) {
   }, {
     key: 'handleClick',
     value: function handleClick() {
-      if (this.options_.direction == "prev") {} else {}
+      var player = this.player_;
+      var track = player.controlBar.chaptersButton.track_;
+      if (!track) return;
+
+      var cues = track.cues;
+      if (!cues.length) return;
+
+      var len = cues.length;
+      var now = player.currentTime();
+
+      for (var n = 0; n < len; n++) {
+        var _cues$n = cues[n];
+        var startTime = _cues$n.startTime;
+        var endTime = _cues$n.endTime;
+
+        if (this.options_.direction == "prev") {
+          if (now > startTime && now <= endTime + 4) {
+            player.currentTime(startTime);
+            break;
+          }
+        } else {
+          if (now >= startTime && now < endTime) {
+            player.currentTime(endTime);
+            break;
+          }
+        }
+      }
     }
   }]);
 
